@@ -31,3 +31,50 @@ menuToggle.addEventListener('click', () => {
     rightTab.classList.add('active');
     darkBackground.classList.add('active');
 });
+
+let changePassword = document.querySelector('.password-button');
+changePassword.addEventListener('click', () => {
+  modalPassword.style.display = "unset";
+});
+
+let logout = document.querySelector('.log-out-button');
+logout.addEventListener('click', () => {
+  modalLeave.style.display = "unset";
+});
+
+let modal = document.querySelectorAll('.modal');
+let modalPassword = document.querySelector('.modal-password');
+let modalCheck = document.querySelector('.modal-check');
+let modalLeave = document.querySelector('.modal-leave');
+let modalClose = document.querySelectorAll('.modal-close');
+
+modalPassword.addEventListener('click', () => {
+  modalPassword.style.display = "none";
+})
+
+modalCheck.addEventListener('click', () => {
+  modalCheck.style.display = "none";
+})
+
+for (let i = 0; i < modalClose.length; i++) {
+  modalClose[i].addEventListener('click', () => {
+    modal[i].style.display = "none";
+  });
+}
+
+let noPassword = document.querySelector('.no-password');
+let yesPassword = document.querySelector('.yes-password');
+let noLeave = document.querySelector('.no-leave');
+
+noPassword.addEventListener('click', () => {
+  modalPassword.style.display = "none";
+})
+
+yesPassword.addEventListener('click', () => {
+  modalPassword.style.display = "none";
+  modalCheck.style.display = "unset";
+})
+
+noLeave.addEventListener('click', () => {
+  modalLeave.style.display = "none";
+})
