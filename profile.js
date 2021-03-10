@@ -1,3 +1,24 @@
+var firebaseConfig = {
+  apiKey: "AIzaSyCVQiH2DSjYOiRrsmgaSRTObEWkGpHm1sA",
+  authDomain: "kebantai2020.firebaseapp.com",
+  databaseURL: "https://kebantai2020-default-rtdb.firebaseio.com",
+  projectId: "kebantai2020",
+  storageBucket: "kebantai2020.appspot.com",
+  messagingSenderId: "290266641346",
+  appId: "1:290266641346:web:85b99043fe87f7795a1c5b",
+  measurementId: "G-M3H7QJBJGQ"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+
+//Initialize Firestore
+const db = firebase.firestore();
+db.settings({
+  timestampsInSnapshots: true
+});
+
 let menuToggle = document.querySelector('.navigation-toggle');
 let rightTab = document.querySelector('.right-header-tab');
 let darkBackground = document.querySelector('.dark-background');
@@ -8,28 +29,28 @@ let leftTab = document.querySelector('.left-header-tab');
 
 
 headerLogo.addEventListener('click', () => {
-    if (leftTab.classList.contains('active')) {
-      leftTab.classList.remove('active');
-      darkBackground.classList.remove('active');
-      headerLogo.classList.remove('active');
-      rightTab.classList.remove('active');
-    } else {
-      leftTab.classList.add('active');
-      darkBackground.classList.add('active');
-      headerLogo.classList.add('active');
-    }
-});
-  
-darkBackground.addEventListener('click', () => {
+  if (leftTab.classList.contains('active')) {
     leftTab.classList.remove('active');
     darkBackground.classList.remove('active');
     headerLogo.classList.remove('active');
     rightTab.classList.remove('active');
-});
-  
-menuToggle.addEventListener('click', () => {
-    rightTab.classList.add('active');
+  } else {
+    leftTab.classList.add('active');
     darkBackground.classList.add('active');
+    headerLogo.classList.add('active');
+  }
+});
+
+darkBackground.addEventListener('click', () => {
+  leftTab.classList.remove('active');
+  darkBackground.classList.remove('active');
+  headerLogo.classList.remove('active');
+  rightTab.classList.remove('active');
+});
+
+menuToggle.addEventListener('click', () => {
+  rightTab.classList.add('active');
+  darkBackground.classList.add('active');
 });
 
 let changePassword = document.querySelector('.password-button');
@@ -78,3 +99,32 @@ yesPassword.addEventListener('click', () => {
 noLeave.addEventListener('click', () => {
   modalLeave.style.display = "none";
 })
+
+/*
+// Get the user's data
+*/
+
+let profile_name = document.querySelector(".profile-name");
+let username = document.querySelector("#username");
+let email_user = document.querySelector("#email");
+let sex = document.querySelector("#sex");
+let age = document.querySelector("#age");
+
+// FIREBASE AUTH
+var user = firebase.auth().currentUser;
+if (user != null) {
+  email_user.innerHTML = user.email;
+}
+
+// FIRESTORE
+db.collection("account").where("username", "==", "Joseph").get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      profile_name.innerHTML = doc.data().username + "'s";
+      username.innerHTML = doc.data().username;
+      sex.innerHTML = doc.data().sex;
+      age.innerHTML = doc.data().age;
+    });
+  })
+  .catch((error) => {
+    console.log("Error getting documents: ", error);
+  });
