@@ -117,7 +117,7 @@ if (user != null) {
 }
 
 // FIRESTORE
-db.collection("account").where("username", "==", "Joseph").get().then((querySnapshot) => {
+db.collection("account").where("username", "==", "joseph").get().then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
       profile_name.innerHTML = doc.data().username + "'s";
       username.innerHTML = doc.data().username;
